@@ -76,7 +76,7 @@ void Execute_Start(void)
     // player position according to player.x and player.y
     player.x = 0;
     player.y = 2;
-    enemy_position = 7;
+    enemy_position = 6;
 }
 
 void Check_For_Touch(void)
@@ -96,7 +96,6 @@ void Check_For_Progress(void)
     // See if it's time to progress by one
     if(enemy_progress_by_one)
     {
-        enemy_progress_by_one = 0;
         change_event(eEnemyResponseProgress);
     }
 }
@@ -109,12 +108,12 @@ void Count_Time(void)
     // Putting it in check_for_progress gives with faster response
     currentMillis = millis();
  
-    if(currentMillis - previousMillis > INTERVAL) {
+    if(currentMillis - previousMillis > INTERVAL) 
+    {
     // save the last time you blinked the LED 
     previousMillis = currentMillis;   
- 
-    
-  }
+    enemy_progress_by_one++;
+    }
 }
 
 void Move_Right(void)
@@ -155,6 +154,7 @@ void Progress(void)
 {
     Serial.println("Progress!");
     // Change LEDs in a way that the alien comes near
+    // When you do change it, flush enemy_progress_by_one
 }
 
 void Touch(void)
