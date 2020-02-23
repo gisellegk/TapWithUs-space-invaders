@@ -61,11 +61,14 @@ void loop() {
   // print the string when a newline arrives:
   if (stringComplete) {
     Serial.println(inputString);
-    if(inputString.equals("3")){
+    if(inputString.equals("3") || inputString.equals("2")){
+      //UP
       setStrip(1, 255,0,0);
-    } else if(inputString.equals("6")){
+    } else if(inputString.equals("6") || inputString.equals("7")){
+      //LEFT
       setStrip(1, 0,255,0);
-    } else if(inputString.equals("8")){
+    } else if(inputString.equals("8") || inputString.equals("9")){
+      //RIGHT
       setStrip(1, 0,0,255);
     }
     // clear the string:

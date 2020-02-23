@@ -1,8 +1,8 @@
 #include "game_state_machine.h"
 
 #define LED_PIN 8
-#define STRIP_LENGTH 7
-#define NUM_STRIPS 8
+#define STRIP_LENGTH 7 // width
+#define NUM_STRIPS 8 // height
 #define NUM_PIXELS (NUM_STRIPS * STRIP_LENGTH)
 
 Adafruit_NeoPixel leds((STRIP_LENGTH*NUM_STRIPS), LED_PIN, NEO_GRB + NEO_KHZ800);
@@ -10,7 +10,7 @@ Adafruit_NeoPixel leds((STRIP_LENGTH*NUM_STRIPS), LED_PIN, NEO_GRB + NEO_KHZ800)
 /*-------------------------------------------------------------------*/
 // LED Code
 /*-------------------------------------------------------------------*/
-0
+
 void initLEDs(void)
 {
   leds.begin();           // INITIALIZE NeoPixel strip object (REQUIRED)
