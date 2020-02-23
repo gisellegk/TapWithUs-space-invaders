@@ -14,21 +14,6 @@
 #define LED_COUNT     7
 #define STRIP_COUNT   8
 
-//Adafruit_NeoPixel strip[0](LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
-//Adafruit_NeoPixel strip[1](LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
-//Adafruit_NeoPixel strip[2](LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
-//Adafruit_NeoPixel strip[3](LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
-//Adafruit_NeoPixel strip[4](LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
-//Adafruit_NeoPixel strip[5](LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
-//Adafruit_NeoPixel strip[6](LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
-//
-//Adafruit_NeoPixel strip0(LED_COUNT, 0, NEO_GRB + NEO_KHZ800);
-//Adafruit_NeoPixel strip1(LED_COUNT, 1, NEO_GRB + NEO_KHZ800);
-//Adafruit_NeoPixel strip2(LED_COUNT, 2, NEO_GRB + NEO_KHZ800);
-//Adafruit_NeoPixel strip3(LED_COUNT, 3, NEO_GRB + NEO_KHZ800);
-//Adafruit_NeoPixel strip4(LED_COUNT, 4, NEO_GRB + NEO_KHZ800);
-//Adafruit_NeoPixel strip5(LED_COUNT, 5, NEO_GRB + NEO_KHZ800);
-//Adafruit_NeoPixel strip6(LED_COUNT, 6, NEO_GRB + NEO_KHZ800);
 
 status_t status = {
   .state = sStart,
@@ -61,5 +46,15 @@ void SerialEvent() {
     char inChar = (char) Serial.read();
     // switch between bunch of events based 
     // what character is received
+    if(inputString.equals("3") || inputString.equals("2")){
+      //UP
+      
+    } else if(inputString.equals("6") || inputString.equals("7")){
+      //LEFT
+      
+    } else if(inputString.equals("8") || inputString.equals("9")){
+      //RIGHT
+      
+    }
   }
 }
