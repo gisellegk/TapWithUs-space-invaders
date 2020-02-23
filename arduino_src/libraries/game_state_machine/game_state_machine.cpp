@@ -122,10 +122,10 @@ void Move_Right(void)
     // Change LEDs in a way that we change right
     if(player.x < (NUM_PIXELS-1) || player.y < 4)
     {
-        setPixel(player.y, player.x, 0, 0, 0);
+        setPixel(player.y, player.x, NOCOLOR);
         player.x += 1;
         player.y += 0;
-        setPixel(player.y, player.x, 0, 255, 0);
+        setPixel(player.y, player.x, GREEN);
         leds.show();
     }
 }
@@ -136,10 +136,10 @@ void Move_Left(void)
     // Change LEDs in a way that we change left
     if(player.x > 0 || player.y < 4)
     {
-        setPixel(player.y, player.x, 0, 0, 0);
+        setPixel(player.y, player.x, NOCOLOR);
         player.x -= 1;
         player.y += 0;
-        setPixel(player.y, player.x, 0, 255, 0);
+        setPixel(player.y, player.x, GREEN);
         leds.show();
     }
 }
@@ -174,6 +174,18 @@ void Win(void)
 {
     Serial.println("Win!");
     // Flash the screen green twice
+    setScreen(GREEN);
+    leds.show();
+    delay(200);
+    setScreen(NOCOLOR);
+    leds.show();
+    delay(200);
+    setScreen(GREEN);
+    leds.show();
+    delay(200);
+    setScreen(NOCOLOR);
+    leds.show();
+    delay(200);
 }
 
 void Lose(void)
