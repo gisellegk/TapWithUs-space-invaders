@@ -43,6 +43,7 @@ void loop() {
   // put your main code here, to run repeatedly:
   event_handler();
   SerialEvent();
+  Count_Time();
 }
 
 void SerialEvent() {
