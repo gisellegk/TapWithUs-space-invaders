@@ -1,4 +1,4 @@
-#include "libraries/game_state_machine.h"
+#include "game_state_machine.h"
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <avr/io.h>
@@ -21,7 +21,7 @@ uint8_t enemy_touch = 0;
 uint8_t enemy_position;
 
 uint8_t player_action_variable;
-progress_t enemy_progress_by_one = 0;
+progress_t enemy_progress_by_one;
 
 #define USART_BAUDRATE 9600
 void setup() {
