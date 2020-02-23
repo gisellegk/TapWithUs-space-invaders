@@ -8,6 +8,7 @@
 #define WHITE   255, 255, 255
 #define RED     255, 0, 0
 #define GREEN   0, 255, 0
+#define BLUE    0, 0, 255
 #define NOCOLOR 0, 0, 0
 
 #define INTERVAL    10000
@@ -23,6 +24,8 @@ void initLEDs(void)
   leds.begin();           // INITIALIZE NeoPixel strip object (REQUIRED)
   leds.show();            // Turn OFF all pixels ASAP
   leds.setBrightness(50); // Set BRIGHTNESS to about 1/5 (max = 255)
+  setScreen(0, 0, 0);
+  leds.show();
 }
 
 void setStrip(int strip, int red, int green, int blue)
@@ -66,22 +69,41 @@ void Execute_Start(void)
     
     // Flash the whole screen with white once
     setScreen(WHITE);
-    delay(100);
+    delay(500);
 
     // and go blank
     setScreen(NOCOLOR);
-    delay(100);
+    delay(500);
 
     // Put starting positions
     // player position according to player.x and player.y
-    player.x = 0;
-    player.y = 2;
-    //enemy_position = 6;
+    player.x = 3;
+    player.y = 0;
+    enemy_position = 7;
+    setStrip(enemy_position, RED);
+    setPixel(player.y, player.x, GREEN);
+    leds.show();
+    delay(300);
+    setStrip(enemy_position, NOCOLOR);
+    setPixel(player.y, player.x, NOCOLOR);
+    leds.show();
+    delay(300);
+    setStrip(enemy_position, RED);
+    setPixel(player.y, player.x, GREEN);
+    leds.show();
+    delay(300);
+    setStrip(enemy_position, NOCOLOR);
+    setPixel(player.y, player.x, NOCOLOR);
+    leds.show();
+    delay(300);
+    setStrip(enemy_position, RED);
+    setPixel(player.y, player.x, GREEN);
+    leds.show();
+    delay(300);
 }
 
 void Check_For_Touch(void)
-{
-    Serial.println("Check for Touch!");
+{   
     // See if the alien has reached position 1
     // Next progress will be a touch toggling progress
     //if(enemy_position == 1)
@@ -92,18 +114,18 @@ void Check_For_Touch(void)
 
 void Check_For_Progress(void)
 {
-    Serial.println("Check for Progress!");
+    
     // See if it's time to progress by one
-    if(enemy_progress_by_one)
-    {
-        change_event(eEnemyResponseProgress);
-    }
+    //if(enemy_progress_by_one == Progress)
+    //{
+    //    change_event(eEnemyResponseProgress);
+    //}
 }
 
 void Count_Time(void)
 {
     // Using this as a global so that we can track time regardless of what state we are in
-    Serial.println("Time Up!");
+    
     // Do we need this? or shall we calculate time in check for progress?
     // Putting it in check_for_progress gives with faster response
     currentMillis = millis();
@@ -112,7 +134,7 @@ void Count_Time(void)
     {
     // save the last time you blinked the LED 
         previousMillis = currentMillis;   
-        enemy_progress_by_one = 1;
+        enemy_progress_by_one = Progress;
     }
 }
 
@@ -148,6 +170,30 @@ void Shoot(void)
 {
     Serial.println("Shoot!");
     // Change LEDs in a way that we emulate a shooting action
+    position bullet = {
+      .x = player.x,
+      .y = player.y + 1,
+    };
+    for(int i = 1; i < NUM_STRIPS; i++){
+      setPixel(bullet.y, bullet.x, BLUE);
+      if(i > 1) setPixel(bullet.y - 1, bullet.x, NOCOLOR);
+      leds.show();
+      delay(100);
+      if(enemy_health[bullet.x] == 1 && bullet.y == enemy_position) {
+        enemy_health[bullet.x] = 0;
+        enemy_count--;
+        setPixel(bullet.y, bullet.x, NOCOLOR);
+        leds.show();
+        delay(100);
+        if(enemy_count == 0) {
+          change_event(eWin);
+          change_state(sWin);
+        }
+        break;
+      } else {
+        bullet.y++;
+     }
+  }
 }
 
 void Progress_Alien(void)
@@ -217,12 +263,14 @@ static inline void Start_State(void)
 
 static inline void Idle_State(void)
 {
+  Serial.println(status.state);
+  Serial.println(status.event);
     switch(status.event)
     {
     case eNoEvent:
         Check_For_Touch();
         Check_For_Progress();
-        Count_Time();
+        Serial.println("Idle");
         break;
     case ePlayerActionLeft:
     case ePlayerActionRight:
@@ -231,7 +279,7 @@ static inline void Idle_State(void)
         break;
     case eEnemyResponseProgress:
     case eEnemyResponseTouch:
-        change_state(sEnemyResponse);
+        //change_state(sEnemyResponse);
         break;
     }
 }
@@ -268,9 +316,9 @@ static inline void EnemyResponse_State(void)
         change_event(eNoEvent);
         break;
     case eEnemyResponseTouch:
-        Touch();
-        change_state(sLose);
-        change_event(eLose);
+        //Touch();
+        //change_state(sLose);
+        //change_event(eLose);
         break;
     case eEnemyResponseOneDead:
         Die();
@@ -328,15 +376,21 @@ void event_handler(void)
         break;
     case sPlayerAction:
         PlayerAction_State();
+        break;
     case sEnemyResponse:
         EnemyResponse_State();
+        break;
     case sWin:
         Win_State();
+        break;
     case sLose:
         Lose_State();
+        break;
     case sEnd:
         End_State();
+        break;
     default:
+        Serial.println(status.state);
         Serial.println("Error State");
         while(1);
         break;

@@ -47,6 +47,7 @@ extern status_t status;
 extern uint8_t enemy_count;
 extern uint8_t enemy_health[7];
 extern uint8_t enemy_touch;
+extern uint8_t enemy_position;
 extern uint8_t player_action_variable;
 extern progress_t enemy_progress_by_one;
 extern position player;
@@ -61,5 +62,7 @@ void event_handler(void);
 void change_state(state_id_t);
 void change_event(event_id_t);
 void Count_Time(void);
+void setScreen(int red, int green, int blue);
+void initLEDs(void);
 
 #endif /* GAME_STATE_MACHINE_H_ */
