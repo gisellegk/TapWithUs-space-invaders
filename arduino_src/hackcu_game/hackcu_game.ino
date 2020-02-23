@@ -15,6 +15,9 @@
 #define STRIP_COUNT   8
 
 
+uint32_t currentMillis = 0;
+uint32_t previousMillis = 0;
+
 status_t status = {
   .state = sStart,
   .event = eNoEvent,
@@ -25,6 +28,7 @@ position bullet;
 
 uint8_t enemy_health = 14;
 uint8_t enemy_touch = 0;
+uint8_t enemy_position = 
 uint8_t player_action_variable ;
 progress_t enemy_progress_by_one = 0;
 
@@ -39,6 +43,7 @@ void loop() {
   // put your main code here, to run repeatedly:
   event_handler();
   SerialEvent();
+  Count_Time();
 }
 
 void SerialEvent() {

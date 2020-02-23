@@ -5,6 +5,13 @@
 #define NUM_STRIPS 8 // height
 #define NUM_PIXELS (NUM_STRIPS * STRIP_LENGTH)
 
+#define WHITE   255, 255, 255
+#define RED     255, 0, 0
+#define GREEN   0, 255, 0
+#define NOCOLOR 0, 0, 0
+
+#define INTERVAL    10000
+
 Adafruit_NeoPixel leds((STRIP_LENGTH*NUM_STRIPS), LED_PIN, NEO_GRB + NEO_KHZ800);
 
 /*-------------------------------------------------------------------*/
@@ -58,17 +65,18 @@ void Execute_Start(void)
     initLEDs();
     
     // Flash the whole screen with white once
-    setScreen(255,255,255);
+    setScreen(WHITE);
     delay(100);
 
     // and go blank
-    setScreen(0,0,0);
+    setScreen(NOCOLOR);
     delay(100);
 
     // Put starting positions
     // player position according to player.x and player.y
     player.x = 0;
     player.y = 2;
+    enemy_position = 7;
 }
 
 void Check_For_Touch(void)
@@ -76,31 +84,59 @@ void Check_For_Touch(void)
     Serial.println("Check for Touch!");
     // See if the alien has reached position 1
     // Next progress will be a touch toggling progress
+    if(enemy_position == 1)
+    {
+        change_event(eEnemyResponseTouch);
+    }
 }
 
 void Check_For_Progress(void)
 {
     Serial.println("Check for Progress!");
     // See if it's time to progress by one
+    if(enemy_progress_by_one)
+    {
+        enemy_progress_by_one = 0;
+        change_event(eEnemyResponseProgress);
+    }
 }
 
 void Count_Time(void)
 {
+    // Using this as a global so that we can track time regardless of what state we are in
     Serial.println("Time Up!");
     // Do we need this? or shall we calculate time in check for progress?
     // Putting it in check_for_progress gives with faster response
+    currentMillis = millis();
+ 
+    if(currentMillis - previousMillis > INTERVAL) {
+    // save the last time you blinked the LED 
+    previousMillis = currentMillis;   
+ 
+    
+  }
 }
 
 void Move_Right(void)
 {
     Serial.println("Move Right!");
     // Change LEDs in a way that we change right
+    if(player.x > 0 || player.y < 4)
+    {
+        player.x += 1;
+        player.y += 0;
+    }
 }
 
 void Move_Left(void)
 {
     Serial.println("Move Left!");
     // Change LEDs in a way that we change left
+    if(player.x > 0 || player.y < 4)
+    {
+        player.x -= 1;
+        player.y += 0;
+    }
 }
 
 void Shoot(void)
@@ -118,9 +154,8 @@ void Progress(void)
 void Touch(void)
 {
     Serial.println("Touch!");
-    // Change to event Lose and state Lose
-    // Change the LEDs - action happens when the position
-    // is at 2
+    // Show touch and some weird ass color
+    // I choose rebeccapurple!
 }
 
 void Die(void)
@@ -145,6 +180,7 @@ void End_Game(void)
 {
     Serial.println("End Game!");
     // Turn the screen white
+    setScreen(WHITE);
 }
 
 static inline void Start_State(void)
