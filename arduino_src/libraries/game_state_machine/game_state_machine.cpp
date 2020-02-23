@@ -1,8 +1,8 @@
 #include "game_state_machine.h"
 
 #define LED_PIN 8
-#define STRIP_LENGTH 7
-#define NUM_STRIPS 8
+#define STRIP_LENGTH 7 // width
+#define NUM_STRIPS 8 // height
 #define NUM_PIXELS (NUM_STRIPS * STRIP_LENGTH)
 
 #define WHITE   255, 255, 255
@@ -17,7 +17,7 @@ Adafruit_NeoPixel leds((STRIP_LENGTH*NUM_STRIPS), LED_PIN, NEO_GRB + NEO_KHZ800)
 /*-------------------------------------------------------------------*/
 // LED Code
 /*-------------------------------------------------------------------*/
-0
+
 void initLEDs(void)
 {
   leds.begin();           // INITIALIZE NeoPixel strip object (REQUIRED)
@@ -120,10 +120,13 @@ void Move_Right(void)
 {
     Serial.println("Move Right!");
     // Change LEDs in a way that we change right
-    if(player.x > 0 || player.y < 4)
+    if(player.x < (NUM_PIXELS-1) || player.y < 4)
     {
+        setPixel(player.y, player.x, 0, 0, 0);
         player.x += 1;
         player.y += 0;
+        setPixel(player.y, player.x, 0, 255, 0);
+        leds.show();
     }
 }
 
@@ -133,8 +136,11 @@ void Move_Left(void)
     // Change LEDs in a way that we change left
     if(player.x > 0 || player.y < 4)
     {
+        setPixel(player.y, player.x, 0, 0, 0);
         player.x -= 1;
         player.y += 0;
+        setPixel(player.y, player.x, 0, 255, 0);
+        leds.show();
     }
 }
 
