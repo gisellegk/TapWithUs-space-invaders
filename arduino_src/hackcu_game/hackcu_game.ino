@@ -30,6 +30,9 @@
 //Adafruit_NeoPixel strip5(LED_COUNT, 5, NEO_GRB + NEO_KHZ800);
 //Adafruit_NeoPixel strip6(LED_COUNT, 6, NEO_GRB + NEO_KHZ800);
 
+uint32_t currentMillis = 0;
+uint32_t previousMillis = 0;
+
 status_t status = {
   .state = sStart,
   .event = eNoEvent,
@@ -40,6 +43,7 @@ position bullet;
 
 uint8_t enemy_health = 14;
 uint8_t enemy_touch = 0;
+uint8_t enemy_position = 
 uint8_t player_action_variable ;
 progress_t enemy_progress_by_one = 0;
 

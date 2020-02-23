@@ -50,11 +50,15 @@ extern uint8_t player_action_variable;
 extern progress_t enemy_progress_by_one;
 extern position player;
 extern position bullet;
+extern uint32_t currentMillis;
+extern uint32_t previousMillis;
+
 
 // extern Adafruit_Neopixel strip[7];
 
 void event_handler(void);
 void change_state(state_id_t);
 void change_event(event_id_t);
+void Count_Time(void);
 
 #endif /* GAME_STATE_MACHINE_H_ */
