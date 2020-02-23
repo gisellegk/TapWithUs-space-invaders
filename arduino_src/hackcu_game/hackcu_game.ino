@@ -1,4 +1,4 @@
-#include "libraries/game_state_machine/game_state_machine.h"
+#include "libraries/game_state_machine.h"
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <avr/io.h>
