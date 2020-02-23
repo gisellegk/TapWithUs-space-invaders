@@ -1,5 +1,34 @@
 #include "game_state_machine.h"
 
+#define LED_PIN 8
+#define STRIP_LENGTH 7
+#define NUM_STRIPS 8
+#define NUM_PIXELS (NUM_STRIPS * STRIP_LENGTH)
+
+Adafruit_NeoPixel leds((STRIP_LENGTH*NUM_STRIPS), LED_PIN, NEO_GRB + NEO_KHZ800);
+
+void initLEDs(void)
+{
+  leds.begin();           // INITIALIZE NeoPixel strip object (REQUIRED)
+  leds.show();            // Turn OFF all pixels ASAP
+  leds.setBrightness(50); // Set BRIGHTNESS to about 1/5 (max = 255)
+}
+
+void setStrip(int strip, int red, int green, int blue)
+{
+  int offset = strip*STRIP_LENGTH;
+  for(int i=0; i<STRIP_LENGTH; i++) 
+  {
+    leds.setPixelColor(offset + i, red, green, blue);
+  }
+}
+
+void setPixel(int strip, int pixel, int red, int green, int blue)
+{
+  int index = strip*STRIP_LENGTH + pixel;
+  leds.setPixelColor(index, red, green, blue);
+}
+
 void change_event(event_id_t event)
 {
     status.event = event;
@@ -10,79 +39,70 @@ void change_state(state_id_t state)
     status.state = state;
 }
 
-void setStrip(int strip, int red, int green, int blue)
-{
-    ;
-}
-
-void setPixel(int strip, int pixel, int red, int green, int blue)
-{
-    ;
-}
-
 void Execute_Start(void)
 {
     Serial.println("Start!");
+    initLEDs();
 }
 
 void Check_For_Touch(void)
 {
-    ;
+    Serial.println("Check for Touch!");
 }
 
 void Check_For_Progress(void)
 {
-    ;
+    Serial.println("Check for Progress!");
 }
 
 void Count_Time(void)
 {
-    ;
+    Serial.println("Time Up!");
 }
 
 void Move_Right(void)
 {
-    ;
+    Serial.println("Move Right!");
 }
 
 void Move_Left(void)
 {
-    ;
+    Serial.println("Move Left!");
 }
 
 void Shoot(void)
 {
-    ;
+    Serial.println("Shoot!");
 }
 
 void Progress(void)
 {
-    ;
+    Serial.println("Progress!");
 }
 
 void Touch(void)
 {
-    ;
+    Serial.println("Touch!");
 }
 
 void Die(void)
 {
-    ;
+    Serial.println("Die!");
 }
 
 void Win(void)
 {
-    ;
+    Serial.println("Win!");
 }
 
 void Lose(void)
 {
-    ;
+    Serial.println("Lose!");
 }
 
 void End_Game(void)
 {
-    ;
+    Serial.println("End Game!");
 }
 
 static inline void Start_State(void)
