@@ -7,6 +7,10 @@
 
 Adafruit_NeoPixel leds((STRIP_LENGTH*NUM_STRIPS), LED_PIN, NEO_GRB + NEO_KHZ800);
 
+/*-------------------------------------------------------------------*/
+// LED Code
+/*-------------------------------------------------------------------*/
+0
 void initLEDs(void)
 {
   leds.begin();           // INITIALIZE NeoPixel strip object (REQUIRED)
@@ -29,6 +33,15 @@ void setPixel(int strip, int pixel, int red, int green, int blue)
   leds.setPixelColor(index, red, green, blue);
 }
 
+void setScreen(int red, int green, int blue){
+    for(int i = 0; i < NUM_STRIPS; i++) {
+        leds.setStrip(i, red, green, blue);
+    }
+    leds.show();
+}
+/*-------------------------------------------------------------------*/
+// State Machine Code
+/*-------------------------------------------------------------------*/
 void change_event(event_id_t event)
 {
     status.event = event;
@@ -43,8 +56,15 @@ void Execute_Start(void)
 {
     Serial.println("Start!");
     initLEDs();
+    
     // Flash the whole screen with white once
+    setScreen(255,255,255);
+    delay(100);
+
     // and go blank
+    setScreen(0,0,0);
+    delay(100);
+
     // Put starting positions
     // player position according to player.x and player.y
     player.x = 0;
