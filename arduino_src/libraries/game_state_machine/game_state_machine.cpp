@@ -121,10 +121,13 @@ void Move_Right(void)
 {
     Serial.println("Move Right!");
     // Change LEDs in a way that we change right
-    if(player.x > 0 || player.y < 4)
+    if(player.x < (NUM_PIXELS-1) || player.y < 4)
     {
+        setPixel(player.y, player.x, 0, 0, 0);
         player.x += 1;
         player.y += 0;
+        setPixel(player.y, player.x, 0, 255, 0);
+        leds.show();
     }
 }
 
@@ -134,8 +137,11 @@ void Move_Left(void)
     // Change LEDs in a way that we change left
     if(player.x > 0 || player.y < 4)
     {
+        setPixel(player.y, player.x, 0, 0, 0);
         player.x -= 1;
         player.y += 0;
+        setPixel(player.y, player.x, 0, 255, 0);
+        leds.show();
     }
 }
 

@@ -33,6 +33,8 @@ void initLEDs(){
   leds.begin();           // INITIALIZE NeoPixel strip object (REQUIRED)
   leds.show();            // Turn OFF all pixels ASAP
   leds.setBrightness(50); // Set BRIGHTNESS to about 1/5 (max = 255)
+  leds.setPixelColor(0,0, 255,255,255);
+  leds.show();
 }
 
 void setStrip(int strip, int red, int green, int blue){
