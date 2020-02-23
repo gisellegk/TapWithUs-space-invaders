@@ -43,66 +43,88 @@ void Execute_Start(void)
 {
     Serial.println("Start!");
     initLEDs();
+    // Flash the whole screen with white once
+    // and go blank
+    // Put starting positions
+    // player position according to player.x and player.y
+    player.x = 0;
+    player.y = 2;
 }
 
 void Check_For_Touch(void)
 {
     Serial.println("Check for Touch!");
+    // See if the alien has reached position 1
+    // Next progress will be a touch toggling progress
 }
 
 void Check_For_Progress(void)
 {
     Serial.println("Check for Progress!");
+    // See if it's time to progress by one
 }
 
 void Count_Time(void)
 {
     Serial.println("Time Up!");
+    // Do we need this? or shall we calculate time in check for progress?
+    // Putting it in check_for_progress gives with faster response
 }
 
 void Move_Right(void)
 {
     Serial.println("Move Right!");
+    // Change LEDs in a way that we change right
 }
 
 void Move_Left(void)
 {
     Serial.println("Move Left!");
+    // Change LEDs in a way that we change left
 }
 
 void Shoot(void)
 {
     Serial.println("Shoot!");
+    // Change LEDs in a way that we emulate a shooting action
 }
 
 void Progress(void)
 {
     Serial.println("Progress!");
+    // Change LEDs in a way that the alien comes near
 }
 
 void Touch(void)
 {
     Serial.println("Touch!");
+    // Change to event Lose and state Lose
+    // Change the LEDs - action happens when the position
+    // is at 2
 }
 
 void Die(void)
 {
     Serial.println("Die!");
+    // Turn off an LED where shoot hits
 }
 
 void Win(void)
 {
     Serial.println("Win!");
+    // Flash the screen green twice
 }
 
 void Lose(void)
 {
     Serial.println("Lose!");
+    // Flash the screen red twice
 }
 
 void End_Game(void)
 {
     Serial.println("End Game!");
+    // Turn the screen white
 }
 
 static inline void Start_State(void)

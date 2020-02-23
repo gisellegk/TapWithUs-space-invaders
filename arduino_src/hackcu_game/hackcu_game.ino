@@ -35,6 +35,14 @@ status_t status = {
   .event = eNoEvent,
 };
 
+position player;
+position bullet;
+
+uint8_t enemy_health = 14;
+uint8_t enemy_touch = 0;
+uint8_t player_action_variable ;
+progress_t enemy_progress_by_one = 0;
+
 #define USART_BAUDRATE 9600
 void setup() {
   // put your setup code here, to run once:
@@ -51,9 +59,7 @@ void loop() {
 void SerialEvent() {
   if(Serial.available()){
     char inChar = (char) Serial.read();
-    if (inChar == '1')
-    {
-      change_event(eStart);
-    }
+    // switch between bunch of events based 
+    // what character is received
   }
 }
