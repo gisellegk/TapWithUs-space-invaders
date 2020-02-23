@@ -15,7 +15,8 @@ status_t status = {
 position player;
 position bullet;
 
-uint8_t enemy_health = 14;
+uint8_t enemy_count = 7;
+uint8_t enemy_health[7];
 uint8_t enemy_touch = 0;
 uint8_t enemy_position;
 
