@@ -28,8 +28,8 @@ position bullet;
 
 uint8_t enemy_health = 14;
 uint8_t enemy_touch = 0;
-uint8_t enemy_position = 
-uint8_t player_action_variable ;
+uint8_t enemy_position;
+uint8_t player_action_variable = 0;
 progress_t enemy_progress_by_one = 0;
 
 #define USART_BAUDRATE 9600
@@ -43,7 +43,7 @@ void loop() {
   // put your main code here, to run repeatedly:
   event_handler();
   SerialEvent();
-  Count_Time();
+  // Count_Time();
 }
 
 void SerialEvent() {

@@ -111,8 +111,8 @@ void Count_Time(void)
     if(currentMillis - previousMillis > INTERVAL) 
     {
     // save the last time you blinked the LED 
-    previousMillis = currentMillis;   
-    enemy_progress_by_one++;
+        previousMillis = currentMillis;   
+        enemy_progress_by_one = 1;
     }
 }
 

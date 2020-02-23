@@ -44,7 +44,8 @@ typedef enum {
 } progress_t;
 
 extern status_t status;
-extern uint8_t enemy_health;
+extern uint8_t enemy_count;
+extern uint8_t enemy_health[6];
 extern uint8_t enemy_touch;
 extern uint8_t player_action_variable;
 extern progress_t enemy_progress_by_one;
